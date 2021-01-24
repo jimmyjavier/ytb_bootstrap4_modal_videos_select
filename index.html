@@ -37,7 +37,7 @@
         <div class="row mt-5">
             <div class="col">
                 <select class="custom-select custom-select-lg mb-3" id="catalogoVideos">
-                    <option selected>Seleccionar video</option>
+                    <option selected value="">Seleccionar video</option>
                     <option value="https://www.youtube.com/embed/9TEXeADYfFI">Video 1</option>
                     <option value="https://www.youtube.com/embed/8TL_6t_8CPE">Video 2</option>
                     <option value="https://www.youtube.com/embed/M8ozY319x58">Video 3</option>
@@ -48,10 +48,7 @@
                   <button        
                     id="botonVentanaModal"            
                     type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#ventanaModal"
-                  >
+                    class="btn btn-primary" >
                     Abrir video responsivo
                   </button>
               
@@ -111,6 +108,35 @@
     <script type="text/javascript">
         $(function(){
 
+          const $botonVentanaModal=$('#botonVentanaModal');
+          const $ventanaModal = $('#ventanaModal');
+          const $selectVideos=$('#catalogoVideos');
+          const $iframeVideo = $('#iframeVideo');
+
+
+          $botonVentanaModal.on('click',function(){
+
+            let videoSrc= $selectVideos.val();
+            if(videoSrc){
+
+              $iframeVideo.attr('src',videoSrc+"?autoplay=1");
+
+              $ventanaModal.modal('show');
+
+
+            }
+            else{
+              alert('Es necesario seleccionar un video.');
+            }
+
+          });
+
+
+          $ventanaModal.on('hidden.bs.modal', function (event) {
+            
+            $iframeVideo.attr('src',null);
+
+          });
            
         });    
     </script>
